@@ -1,0 +1,266 @@
+* {
+     margin: 0;
+     padding: 0;
+     box-sizing: border-box;
+}
+
+@keyframes breathing {
+     0% {
+          background: linear-gradient(black to black);
+     }
+     50% {
+          background-color: linear-gradient(black to black);
+     }
+
+     100% {
+          background-color: linear-gradient(black to black);
+     }
+}
+
+@keyframes disabled {
+     0% {
+          background-color: rgb(167, 30, 30);
+     }
+
+     100% {
+          filter: grayscale(100%);
+     }
+}
+@keyframes disabledGreen {
+     0% {
+          background-color: rgb(144, 212, 41);
+     }
+
+     100% {
+          filter: grayscale(100%);
+     }
+}
+@keyframes starting {
+     0% {
+          background: rgb(221, 153, 5);
+     }
+     75% {
+          background: rgb(39, 29, 2);
+     }
+     100% {
+          background: rgb(221, 153, 5);
+     }
+}
+@keyframes stopping {
+     0% {
+          background: rgb(221, 153, 5);
+     }
+     75% {
+          background: rgb(165, 0, 0);
+     }
+     100% {
+          background: rgb(221, 153, 5);
+     }
+}
+
+body {
+     font: 13px Helvetica, Arial;
+     background: rgb(47, 47, 47);
+}
+
+.console-button {
+     background: #000;
+     padding: 3px;
+
+     width: 100%;
+}
+.console-button input {
+     border: 0;
+     border-radius: 10px;
+     padding: 10px;
+     width: 90%;
+     margin: 0.5%;
+     background-color: rgb(37, 35, 35);
+     color: white;
+}
+.console-button input:focus,
+.console-button button:focus {
+     outline: none;
+}
+.console-button input:hover,
+.console-button button:hover {
+     filter: contrast(2);
+}
+.console-button button {
+     position: absolute;
+     width: 9%;
+     background: rgba(4, 126, 182, 0.63);
+     color: white;
+     border: none;
+     padding: 10px;
+     border-radius: 15px 0 0 15px;
+     right: 0;
+     width: 4rem;
+}
+#messages {
+     list-style-type: none;
+     margin: 0;
+     padding: 0;
+}
+#messages li {
+     padding: 5px 10px;
+}
+#messages li:nth-child(odd) {
+     background: #eee;
+}
+
+.status-offline,
+.status-online,
+.status-starting,
+.status-stopping {
+     font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande", "Lucida Sans Unicode",
+          Geneva, Verdana, sans-serif;
+     background-color: rgb(34, 33, 33);
+     height: 2rem;
+     font-size: 1rem;
+     display: block;
+     margin: auto;
+     padding-top: 0.3rem;
+     text-align: center;
+     overflow: hidden;
+}
+.status-offline {
+     background: rgb(192, 7, 7);
+}
+.status-online {
+     background: rgb(10, 187, 10);
+     transition-duration: 2s;
+}
+.status-starting {
+     animation: starting;
+     animation-duration: 2s;
+     animation-iteration-count: infinite;
+     /* animation-direction: alternate; */
+}
+.status-stopping {
+     animation: stopping;
+     animation-duration: 2s;
+     animation-iteration-count: infinite;
+     /* animation-direction: alternate; */
+}
+.container {
+     display: block;
+     margin: auto;
+     position: relative;
+     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell,
+          "Open Sans", "Helvetica Neue", sans-serif;
+     color: white;
+
+     width: 70%;
+     min-width: 400px;
+
+     overflow: hidden;
+     border-radius: 10px;
+     margin-top: 5rem;
+}
+.console {
+     padding: 10px;
+     background: black;
+     display: flex;
+     height: 60vh;
+     flex-direction: column-reverse;
+     border: black 2px solid;
+     overflow: scroll;
+     overflow-x: hidden;
+     z-index: 1;
+     scroll-behavior: auto;
+     scrollbar-color: rgb(241, 2, 2) blue;
+}
+.console::-webkit-scrollbar {
+     background-color: transparent;
+     width: 7px;
+}
+.console::-webkit-scrollbar-thumb {
+     background-color: pink;
+     border-radius: 2px;
+}
+.console::-webkit-scrollbar-thumb:hover {
+     background-color: rgb(226, 138, 152);
+     border-radius: 2px;
+}
+.start,
+.stop {
+     display: inline-flex;
+     margin: 0;
+     padding: 0;
+     border: none;
+
+     width: auto;
+     height: auto;
+     user-select: none;
+}
+.start-button,
+.stop-button {
+     display: inline-block;
+     position: relative;
+     background-color: rgb(144, 212, 41);
+     color: white;
+     border: none;
+     padding: 1rem;
+     margin: auto;
+     transition-duration: 200ms;
+     animation-name: breathing;
+     animation-duration: 2s;
+     animation-iteration-count: infinite;
+
+     width: auto;
+     height: auto;
+     user-select: none;
+}
+.stop-button {
+     background: rgba(168, 9, 9, 0.767);
+     animation-iteration-count: 0;
+}
+
+.start-button:focus,
+.stop-button:focus {
+     outline: none;
+}
+.start-button:hover,
+.stop-button:hover {
+     filter: contrast(2);
+     transition-duration: 200ms;
+     animation-iteration-count: 1;
+}
+.start-button:active,
+.stop-button:active {
+     position: relative;
+     top: 2px;
+     background: greenyellow;
+}
+.control-buttons {
+     background: black;
+     /* margin: auto; */
+     display: flex;
+     flex-direction: row-reverse;
+}
+.start-button:disabled,
+.stop-button:disabled {
+     transition-duration: 2000ms;
+     animation-name: disabled;
+     animation-iteration-count: 1;
+     animation-fill-mode: both;
+}
+.start-button:disabled {
+     animation-name: disabledGreen;
+}
+.resource-stats {
+     list-style: none;
+     display: flex;
+     font-size: 0.9rem;
+}
+.resource-stats__item {
+     padding-right: 2rem;
+     list-style: none;
+     display: flex;
+     -ms-flex-align: center;
+}
+
+red {
+     color: red;
+}

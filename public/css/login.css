@@ -1,0 +1,125 @@
+body {
+     background: url("/images/firewatch.jpg") no-repeat;
+     background-size: cover;
+     height: 100vh;
+     image-rendering: optimizeSpeed;
+     background-attachment: fixed;
+}
+.login-container {
+     display: block;
+     /* height: 25vh; */
+     /* background: rgb(179, 35, 35); */
+
+     margin: auto;
+     width: 100vw;
+
+     position: absolute;
+
+     text-align: center;
+}
+.login-form,
+.registration-form {
+     margin: auto;
+     position: absolute;
+
+     left: 0;
+     right: 0;
+     height: 100vh;
+     width: 100vw;
+     background: linear-gradient(rgba(0, 0, 0, 0.527), rgba(0, 0, 0, 0.781));
+
+     color: white;
+     padding: 3rem;
+     border-radius: 0;
+
+     backdrop-filter: blur(10px);
+     z-index: 200;
+}
+.registration-form {
+     top: 0;
+     display: none;
+     z-index: 300;
+}
+.login-title {
+     list-style: none;
+     font-size: 3rem;
+     padding: 2rem;
+}
+.login-brand {
+     font-size: 2rem;
+}
+.login-input {
+     display: block;
+     margin: auto;
+     margin-bottom: 2rem;
+     margin-top: 1rem;
+     width: 100%;
+     height: 2rem;
+     background: rgba(214, 206, 206, 0);
+     border: none;
+     border-bottom: gray solid;
+     font-size: 1.1rem;
+     color: white;
+     /* border-radius: 1rem; */
+     text-align: center;
+}
+.login-input:focus {
+     outline: none;
+     background-color: rgba(255, 255, 255, 0.671);
+     color: black;
+     border: none;
+     transition-duration: 200ms;
+}
+.login-button,
+.registration-button {
+     margin-top: 2rem;
+     border: none;
+     margin-right: 2rem;
+     margin-left: 2rem;
+}
+.cancel-button {
+     background-color: rgb(158, 0, 0);
+}
+.floating-email,
+.floating-password {
+     position: relative;
+     top: 2rem;
+     transition-duration: 200ms;
+     user-select: none;
+}
+
+.floating-email--selected,
+.floating-password--selected {
+     position: relative;
+     top: 0rem;
+     transition-duration: 200ms;
+     font-weight: bold;
+}
+@media (min-width: 600px) {
+     .login-container {
+          padding: 10rem;
+     }
+     .login-form,
+     .registration-form {
+          top: 7rem;
+          width: 400px;
+          /* border-radius: 10px;
+          margin-top: 2rem; */
+          height: auto;
+     }
+     .registration-form {
+          top: 3rem;
+     }
+     .login-input {
+          display: block;
+          width: 100%;
+          margin-bottom: 1rem;
+          margin-top: 0.5rem;
+     }
+}
+
+.login-container a {
+     color: white;
+     display: block;
+     padding: 1rem;
+}

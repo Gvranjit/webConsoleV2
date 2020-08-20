@@ -1,0 +1,46 @@
+const { game } = require("../server");
+const { io } = require("../app.js");
+const { startDataEmit } = require("../controllers/game");
+
+io.on("connection", socketController);
+
+function socketController(socket) {
+     console.log("A user is connected");
+     socket.on("disconnect", () => {
+          console.log("user disconnected");
+     });
+     socket.on("chat message", (message) => {
+          console.log(message);
+          if (game.nepalSurvival.running) {
+               console.log("this is a command being deployed");
+               game.nepalSurvival.sendCommand(message);
+          }
+          io.emit("chat", { message: message });
+     });
+     socket.on("stopServer", (msg) => {
+          console.log(msg);
+          if (!game.nepalSurvival.running) {
+               return;
+          } else {
+               game.nepalSurvival.stop();
+          }
+
+          io.emit("chat", { message: socket.handshake.address + " issued a SHUT DOWN command" });
+     });
+     socket.on("startServer", (msg) => {
+          mcServer.startNepalServer();
+          io.emit("chat", { message: socket.handshake.address + " issued a START command" });
+          startDataEmit();
+     });
+     socket.on("test", () => {
+          game.nepalServer
+               .memoryUsage()
+               .then((data) => {
+                    io.emit("chat", { message: data.memory / 1024 / 1024 + " MB" });
+               })
+               .catch((err) => {
+                    console.log(err);
+                    io.emit("chat", { message: err });
+               });
+     });
+}

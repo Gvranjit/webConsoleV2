@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+     <%- include("./includes/head") %>
+     <link rel="stylesheet" href="/css/console-page.css" />
+     <body>
+          <%-include ("./includes/nav.ejs") %> <% let status; %> <% if (!starting) { %> <% status=
+          "status-offline" %> <% } %> <% if (starting) { %> <% status= "status-starting" %> <% } %>
+          <% if (running) { %> <% status= "status-online" %> <% } %> <% if (stopping) { %> <%
+          status= "status-stopping" %> <% } %>
+
+          <div class="container">
+               <div class="title-bar">
+                    <p class="<%= status %>" id="status">CraftNepal - Nepal Epic Server</p>
+               </div>
+               <div class="console"><div id="console-screen"><%-latestLog %></div></div>
+
+               <div>
+                    <form action="" class="console-button">
+                         <input id="m" autocomplete="off" autofocus="true" /><button>Send</button>
+                    </form>
+               </div>
+               <div class="control-buttons">
+                    <form action="" class="start">
+                         <button class="start-button" <% if(starting || stopping && running){ %>
+                              disabled <%}%> >Start Server
+                         </button>
+                    </form>
+                    <form action="" class="stop">
+                         <button class="stop-button" <% if(!running || !starting){ %>
+                              disabled <%}%>>Stop Server
+                         </button>
+                    </form>
+
+                    <ul class="resource-stats">
+                         <li class="resource-stats__item" id="cpu-usage">
+                              Cpu Usage<br /><%=memory%>
+                         </li>
+                         <li class="resource-stats__item" id="ram-usage">
+                              Ram Usage<br /><%=memory%>
+                         </li>
+                    </ul>
+               </div>
+          </div>
+
+          <script src="/socket.io/socket.io.js"></script>
+          <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+          <script>
+               $(function () {
+                    var socket = io();
+                    socket.emit("joinRoom", {
+                         server: "<%=server%>",
+                    });
+
+                    $(".console-button").submit(function (e) {
+                         e.preventDefault(); // prevents page reloading
+                         socket.emit("chat message", {
+                              server: "<%=server%>",
+                              message: $("#m").val(),
+                         });
+                         $("#m").val("");
+                         return false;
+                         console.log($("#m").val());
+                    });
+
+                    $(".start").submit(function (e) {
+                         e.preventDefault(); // prevents page reloading
+
+                         socket.emit("startServer", {
+                              username: "<%=username%>",
+                              server: "<%=server%>",
+                         });
+                         $(".start-button").attr("disabled", true);
+                         $("#status").attr("class", "status-starting");
+                         return false;
+                    });
+
+                    $(".stop").submit(function (e) {
+                         e.preventDefault(); // prevents page reloading
+                         socket.emit("stopServer", {
+                              username: "<%=username%>",
+                              server: "<%=server%>",
+                         });
+                         $(".stop-button").attr("disabled", true);
+                         $("#status").attr("class", "status-stopping");
+
+                         return false;
+                    });
+
+                    $(".test").submit(function (e) {
+                         e.preventDefault(); // prevents page reloading
+                         socket.emit("test", { username: "<%=username%>", server: "<%=server%>" });
+
+                         return false;
+                    });
+                    socket.on("stopped", function (msg) {
+                         $(".start-button").removeAttr("disabled");
+                         $(".stop-button").attr("disabled", true);
+                         $("#status").attr("class", "status-offline");
+                    });
+                    socket.on("started", function (msg) {
+                         $("#status").attr("class", "status-online");
+                         $(".stop-button").removeAttr("disabled");
+                         $(".start-button").attr("disabled", true);
+                    });
+                    socket.on("chat message", function (msg) {
+                         console.log("A MESSAGE APPEARED");
+                         $("<br><span>" + msg.message + "</span>").appendTo("p");
+                    });
+                    socket.on("chat", function (msg) {
+                         $("<br><span>" + msg.message + "</span>").appendTo("#console-screen");
+                         $(".console")[0].scrollTop = $(".console")[0].scrollHeight;
+                    });
+                    socket.on("resourcesUpdate", function (msg) {
+                         $("#ram-usage").text(`${msg.ramUsage} / 1024 MB`);
+                         $("#cpu-usage").text(`${msg.cpuUsage} / 100  %`);
+                    });
+               });
+          </script>
+     </body>
+</html>

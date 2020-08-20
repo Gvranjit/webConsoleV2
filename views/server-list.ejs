@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+     <%- include("./includes/head") %>
+     <link rel="stylesheet" href="/css/server-list.css" />
+     <body>
+          <%- include("./includes/nav") %>
+
+          <div class="greeting" id="greeting"><h1>Hi <%= username %></h1></div>
+
+          <script src="/socket.io/socket.io.js"></script>
+          <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+
+          <!-- layout for server list items -->
+          <div class="servers-list">
+               <input type="hidden" name="username" id="username" value="<%=username%>" />
+
+               <div class="servers-list--inner">
+                    <!-- # Extracting all servers and lists of options for each server-->
+                    <% servers.forEach(server => { %>
+
+                    <ul class="server">
+                         <!-- <li class="server-option"><img src="" alt="" /></li> -->
+                         <li class="server-option"><%=server.name%></li>
+                         <li class="server-option--status"><%=server.status%></li>
+                         <li class="server-option server-option-start">
+                              <label for="" class="slider-label"
+                                   ><input
+                                        class="checkbox"
+                                        type="checkbox"
+                                        name="checkbox"
+                                        disabled
+                                   />
+                              </label>
+                         </li>
+                         <label for="auto-restart" class="slider-label">Auto-Restart</label>
+                         <li class="server-option server-option-restart">
+                              <input class="checkbox" type="checkbox" id="auto-restart"
+                              name="auto-restart" <%=server.autoRestart?"checked":""%> />
+                         </li>
+
+                         <li class="server-option-console">
+                              <form action="/admin/console" method="POST">
+                                   <input type="hidden" name="server" value="<%=server.name%>" />
+                                   <button class="console-button" type="submit">
+                                        Open console
+                                   </button>
+                              </form>
+                         </li>
+                    </ul>
+
+                    <% }) %>
+               </div>
+
+               <div class="resources-usage-graph">
+                    <chart id="resources-usage-graph--canvas"></chart>
+               </div>
+          </div>
+     </body>
+     <script src="/js/Chart.bundle.js"></script>
+     <script src="/js/server-list.js"></script>
+     <%- include("./includes/footer.ejs") %>
+</html>
