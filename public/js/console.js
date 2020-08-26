@@ -1,4 +1,6 @@
 //nothing here
+const 
+
 function confirm(cb) {
      backdrop.style.display = "block";
      confirmation.style.display = "block";
