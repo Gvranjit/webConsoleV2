@@ -14,8 +14,9 @@
                </div>
                <div class="console">
                     <div id="console-screen">
-                         Please refer to the latest.log file manually.Loading all logs will make
-                         this screen freeze.
+                         <a href="/admin/latest-logs?server=<%=server%>" target="_blank"
+                              >Get Latest Log files here.</a
+                         >
                     </div>
                </div>
 
@@ -41,10 +42,9 @@
 
                     <ul class="resource-stats">
                          <li class="resource-stats__item" id="cpu-usage">
-                              Cpu Usage<br /><%=memory%>
-                         </li>
-                         <li class="resource-stats__item" id="ram-usage">
-                              Ram Usage<br /><%=memory%>
+                              <a href="/admin/latest-logs?server=<%=server%>" target="_blank"
+                                   >Latest Log</a
+                              >
                          </li>
                     </ul>
                </div>

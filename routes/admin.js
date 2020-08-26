@@ -16,9 +16,12 @@ router.post("/stop-server", auth, adminController.postStopServer);
 
 router.post("/restart-server", auth, adminController.postRestartServer);
 
+router.get("/latest-logs", auth, adminController.getLatestLogs);
+
 router.get("/", auth, adminController.getServerList);
 
 router.post("/console", auth, adminController.postConsolePage);
+
 //exports
 
 module.exports = router;

@@ -108,22 +108,16 @@ exports.postConsolePage = (req, res, next) => {
           throw error;
      }
 
-     fs.readFile(game[server].options.world + "/logs/latest.log", (err, data) => {
-          if (err) {
-               return console.log(err);
-          }
+     return res.render("index", {
+          username: req.username,
+          server: server,
+          running: game[server].running,
+          starting: game[server].starting,
+          stopping: game[server].stopping,
 
-          return res.render("index", {
-               username: req.username,
-               server: server,
-               running: game[server].running,
-               starting: game[server].starting,
-               stopping: game[server].stopping,
-               latestLog: data.toString().split("\r").join("<br>"),
-               memory: "--",
-               cpu: "--",
-               title: "CraftNepal Console",
-          });
+          memory: "--",
+          cpu: "--",
+          title: "CraftNepal Console",
      });
 };
 
@@ -138,4 +132,9 @@ exports.postStopServer = (req, res, next) => {
 exports.postRestartServer = (req, res, next) => {
      mcServer.startNepalServer();
      return res.redirect("/");
+};
+
+exports.getLatestLogs = (req, res, next) => {
+     const server = req.query.server;
+     res.sendFile(path.join(__dirname, "..", game[server].options.world, "logs", "latest.log"));
 };
