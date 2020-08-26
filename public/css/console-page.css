@@ -2,6 +2,7 @@
      margin: 0;
      padding: 0;
      box-sizing: border-box;
+     color: white;
 }
 
 @keyframes breathing {
@@ -195,7 +196,8 @@ body {
      user-select: none;
 }
 .start-button,
-.stop-button {
+.stop-button,
+.fstop-button {
      display: inline-block;
      position: relative;
      background-color: rgb(144, 212, 41);
@@ -212,23 +214,29 @@ body {
      height: auto;
      user-select: none;
 }
+.fstop-button {
+     background: blueviolet;
+}
 .stop-button {
      background: rgba(168, 9, 9, 0.767);
      animation-iteration-count: 0;
 }
 
 .start-button:focus,
-.stop-button:focus {
+.stop-button:focus,
+.fstop-button:focus {
      outline: none;
 }
 .start-button:hover,
-.stop-button:hover {
+.stop-button:hover,
+.fstop-button:hover {
      filter: contrast(2);
      transition-duration: 200ms;
      animation-iteration-count: 1;
 }
 .start-button:active,
-.stop-button:active {
+.stop-button:active,
+.fstop-button:active {
      position: relative;
      top: 2px;
      background: greenyellow;

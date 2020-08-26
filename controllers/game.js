@@ -70,6 +70,7 @@ exports.onStart = (serverName, game) => {
      });
 };
 exports.onMessage = (serverName, message) => {
+     //replacing the <  and > with  [  and  ] because html will ignore player name for example <code>
      const filteredMessage = message.rawMessage.split("<").join("[").split(">").join("] : ");
      console.log(filteredMessage);
      io.to(serverName).emit("chat", { name: serverName, message: filteredMessage });

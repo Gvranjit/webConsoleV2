@@ -1,3 +1,4 @@
+const config = require("../config.json");
 const jwt = require("jsonwebtoken");
 const User = require("../models/user");
 module.exports = (req, res, next) => {
@@ -14,7 +15,7 @@ module.exports = (req, res, next) => {
      //decode the token and check if valid.
      let decodedToken;
      try {
-          decodedToken = jwt.verify(token, "cnobimyktm123$");
+          decodedToken = jwt.verify(token, config.jwtSecret);
      } catch (err) {
           err.statusCode = 401;
           throw err;

@@ -114,6 +114,10 @@ function socketController(socket) {
                game[msg.server].stop();
           }
      });
+     socket.on("forceStopServer", (msg) => {
+          console.log("FORCING SHUTDOWN");
+          game[msg.server].forceStop();
+     });
      socket.on("startServer", (msg) => {
           console.log(msg);
           if (

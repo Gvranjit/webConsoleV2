@@ -26,9 +26,12 @@
                          </button>
                     </form>
                     <form action="" class="stop">
-                         <button class="stop-button" <% if(!running || !starting){ %>
+                         <button class="stop-button" <% if(!running || !starting){%>
                               disabled <%}%>>Stop Server
                          </button>
+                    </form>
+                    <form action="" class="fstop">
+                         <button class="fstop-button" id="fstop-button">Force Stop</button>
                     </form>
 
                     <ul class="resource-stats">
@@ -44,6 +47,7 @@
 
           <script src="/socket.io/socket.io.js"></script>
           <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+          <script src="/js/console.js"></script>
           <script>
                $(function () {
                     var socket = io();
@@ -82,6 +86,22 @@
                          });
                          $(".stop-button").attr("disabled", true);
                          $("#status").attr("class", "status-stopping");
+
+                         return false;
+                    });
+                    $(".fstop").submit(function (e) {
+                         e.preventDefault(); // prevents page reloading
+
+                         confirm((yes) => {
+                              if (yes) {
+                                   socket.emit("forceStopServer", {
+                                        username: "<%=username%>",
+                                        server: "<%=server%>",
+                                   });
+                                   $(".stop-button").attr("disabled", true);
+                                   $("#status").attr("class", "status-stopping");
+                              }
+                         });
 
                          return false;
                     });

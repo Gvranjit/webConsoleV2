@@ -180,3 +180,10 @@
 #yes:hover {
      background: red;
 }
+#no {
+     background: rgb(22, 163, 3);
+     color: white;
+}
+#no:hover {
+     background: rgb(115, 255, 0);
+}

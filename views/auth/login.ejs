@@ -14,12 +14,21 @@
                          </li>
                          <li class="login-text">Login</li>
                     </ul>
-                    <div class="floating-email">Email</div>
-                    <label for="email" hidden>Email:</label>
-                    <input type="email" class="login-input" id="email" name="email" />
-                    <label for="password" hidden>Password:</label>
-                    <div class="floating-password">Password</div>
-                    <input type="password" class="login-input" id="password" name="password" />
+                    <div class="email">
+                         <input type="text" class="login-input" id="email" name="email" required />
+                         <label for="email" class="email-label">Email</label>
+                    </div>
+
+                    <div class="password">
+                         <input
+                              type="password"
+                              class="login-input"
+                              id="password"
+                              name="password"
+                              required
+                         />
+                         <label for="password" class="password-label">Password</label>
+                    </div>
                     <button id="login" type="submit" class="login-button">Login</button>
                     <a href="#">Forgot Password?</a>
                     <a href="#" id="register">Register</a>

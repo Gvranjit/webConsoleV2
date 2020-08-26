@@ -1,3 +1,4 @@
+const config = require("../config.json");
 const jwt = require("jsonwebtoken");
 const validator = require("validator").default;
 const bcrypt = require("bcrypt");
@@ -126,7 +127,7 @@ exports.postLogin = async (req, res, next) => {
                     admin: "true",
                     nickName: user.nickName,
                },
-               "cnobimyktm123$",
+               config.jwtSecret,
                { expiresIn: "100m" }
           );
           console.log(token);
