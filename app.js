@@ -83,7 +83,7 @@ app.use((error, req, res, next) => {
 
 sequelize.sync({ force: false }).then(() => {});
 
-http.listen(process.env.port || 8080);
+http.listen(process.env.port || 3000);
 //SOCKET IO
 
 io.on("connection", socketController);
