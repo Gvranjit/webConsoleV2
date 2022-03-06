@@ -1,8 +1,7 @@
 const { Sequelize } = require("sequelize");
 
-const sequelize = new Sequelize("minecraft-control", "root", "lovely", {
+const sequelize = new Sequelize("minecraft-control", "craftnepal", "Admin123$", {
      dialect: "mysql",
-
      host: "localhost",
 });
 
