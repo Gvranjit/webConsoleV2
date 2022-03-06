@@ -1,4 +1,4 @@
-const { Game } = require("minecraft-control");
+const { Game } = require("./mcm");
 const serverList = require("./server-list.json");
 const gameController = require("./controllers/game");
 
